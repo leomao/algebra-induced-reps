@@ -38,20 +38,12 @@
 %%%%%%%%%%%%%%%%%%%TikZ%%%%%%%%%%%%%%%%%%%%%%
 \usepackage{tikz}
 \usepackage{tikz-cd}
-%\usepackage{circuitikz}
 \usetikzlibrary{calc}
 \usetikzlibrary{arrows}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
 
 \tikzstyle{every picture}+=[remember picture]
-
-%%%%%%%%%%%%%%中文 Environment%%%%%%%%%%%%%%%
-%\usepackage[CheckSingle, CJKmath]{xeCJK}  % xelatex 中文
-%\usepackage{CJKulem}	% 中文字裝飾
-%\setCJKmainfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
-%\setCJKsansfont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
-%\setCJKmonofont[BoldFont=cwTeX Q Hei]{cwTeX Q Ming}
 
 %%%%%%%%%%%%%%%%%font size%%%%%%%%%%%%%%%%%%%
 %\def\normalsize{\fontsize{10}{15}\selectfont}
@@ -134,42 +126,34 @@
 \DeclareMathOperator{\arcsech}{arcsech}
 \DeclareMathOperator{\arccsch}{arccsch}
 \DeclareMathOperator{\arccoth}{arccoth}
-\newcommand{\np}[1]{\\[{#1}] \indent}
-\newcommand{\tr}[1]{{#1}^\mathrm{t}}
-%%%% Geometry Symbol %%%%
-\newcommand{\degree}{^\circ}
-\newcommand{\Arc}[1]{\wideparen{{#1}}}
-\newcommand{\Line}[1]{\overleftrightarrow{{#1}}}
-\newcommand{\Ray}[1]{\overrightarrow{{#1}}}
-\newcommand{\Segment}[1]{\overline{{#1}}}
 %%%% Math symbol %%%%
-\newcommand{\defeq}{\vcentcolon=}
-\newcommand{\Nb}{\mathbb{N}}
-\newcommand{\Zb}{\mathbb{Z}}
-\newcommand{\Qb}{\mathbb{Q}}
-\newcommand{\Rb}{\mathbb{R}}
-\newcommand{\Cb}{\mathbb{C}}
-\newcommand{\Hb}{\mathbb{H}}
-\newcommand{\Fb}{\mathbb{F}}
-\newcommand{\Fbx}{\mathbb{F}^\times}
-\newcommand{\Qbx}{\mathbb{Q}^\times}
-\newcommand{\Rbx}{\mathbb{R}^\times}
-\newcommand{\Cbx}{\mathbb{C}^\times}
-\newcommand{\Hbx}{\mathbb{H}^\times}
-\newcommand{\Gc}{\mathcal{G}}
-\newcommand{\Fc}{\mathcal{F}}
-\newcommand{\Cc}{\mathcal{C}}
-\newcommand{\Dc}{\mathcal{D}}
-\newcommand{\sT}{{\sf T}}
-\newcommand{\sI}{{\sf I}}
+\newcommand*{\defeq}{\vcentcolon=}
+\newcommand*{\Nb}{\mathbb{N}}
+\newcommand*{\Zb}{\mathbb{Z}}
+\newcommand*{\Qb}{\mathbb{Q}}
+\newcommand*{\Rb}{\mathbb{R}}
+\newcommand*{\Cb}{\mathbb{C}}
+\newcommand*{\Hb}{\mathbb{H}}
+\newcommand*{\Fb}{\mathbb{F}}
+\newcommand*{\Fbx}{\mathbb{F}^\times}
+\newcommand*{\Qbx}{\mathbb{Q}^\times}
+\newcommand*{\Rbx}{\mathbb{R}^\times}
+\newcommand*{\Cbx}{\mathbb{C}^\times}
+\newcommand*{\Hbx}{\mathbb{H}^\times}
+\newcommand*{\Gc}{\mathcal{G}}
+\newcommand*{\Fc}{\mathcal{F}}
+\newcommand*{\Cc}{\mathcal{C}}
+\newcommand*{\Dc}{\mathcal{D}}
+\newcommand*{\sT}{{\sf T}}
+\newcommand*{\sI}{{\sf I}}
 
-\newcommand{\Mf}{\mathfrak{M}}
-\newcommand{\Grf}{\mathfrak{Gr}}
+\newcommand*{\Mf}{\mathfrak{M}}
+\newcommand*{\Grf}{\mathfrak{Gr}}
 
-\newcommand{\bigOp}{\raisebox{0.3ex}{$\bigoplus$}}
-\newcommand{\bigOt}{\raisebox{0.3ex}{$\bigotimes$}}
-\newcommand{\Op}{\oplus}
-\newcommand{\Ot}{\otimes}
+\DeclareMathOperator{\Res}{Res}
+\DeclareMathOperator{\Ind}{Ind}
+
+\newcommand*\GL[1]{\operatorname{GL}\mathopen{}\left({#1}\right)\mathclose{}}
 
 \DeclareMathOperator{\Sym}{Sym}
 \DeclareMathOperator{\Alt}{Alt}
@@ -200,17 +184,35 @@
 \DeclareMathOperator{\Ext}{Ext}
 %
 
-\newcommand{\ob}{\overline}
+\newcommand*{\ob}{\overline}
 \DeclareMathOperator{\ord}{ord}
 \DeclarePairedDelimiter{\gen}{\langle}{\rangle} % generator
 %\newcommand*\quot[2]{{^{\textstyle #1}\Big/_{\textstyle #2}}}
 \newcommand*\quot[2]{{#1}/{#2}}
-\newcommand\bij{\lhook\joinrel\twoheadrightarrow}
-\newcommand\toone{\hookrightarrow}
-\newcommand\onto{\twoheadrightarrow}
-\newcommand\acts{\curvearrowright}
-\newcommand\revacts{\curvearrowleft}
-\newcommand\isoto{\xrightarrow{\sim}}
+\newcommand*\bij{\lhook\joinrel\twoheadrightarrow}
+\newcommand*\oneto{\hookrightarrow}
+\newcommand*\onto{\twoheadrightarrow}
+\newcommand*\isoto{\xrightarrow{\sim}}
+\newcommand*\acts{\curvearrowright}
+\newcommand*\revacts{\curvearrowleft}
+
+% just to make sure it exists
+\providecommand\given{}
+% can be useful to refer to this outside \Set
+\newcommand*\SetSymbol[1][]{%
+  \nonscript\:#1\vert
+  \allowbreak
+  \nonscript\:
+\mathopen{}}
+\DeclarePairedDelimiterX\Set[1]\{\}{%
+  \renewcommand\given{\SetSymbol[\delimsize]}
+  \,#1\,
+}
+
+\DeclarePairedDelimiterX\Gen[1]{\langle}{\rangle}{%
+  \renewcommand\given{\SetSymbol[\delimsize]}
+  \,#1\,
+}
 
 % cycle group \cycle{1,2,3} => (1 2 3)
 \ExplSyntaxOn
@@ -229,11 +231,6 @@
  }
 \ExplSyntaxOff
 
-\newcommand\Div{\mathrel{\big|}}
-\newcommand\nDiv{\mathrel{\not\big|}}
-\newcommand\relmiddle[1]{\mathrel{}\middle#1\mathrel{}}
-\newcommand{\RNum}[1]{\uppercase\expandafter{\romannumeral #1\relax}}
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\renewcommand{\proofname}{\bf pf:}
 \newtheoremstyle{mystyle}% custom style
@@ -246,15 +243,13 @@
   {}%               Theorem head spec (can be left empty, meaning 'normal')
 
 \theoremstyle{mystyle}
-\newtheorem{theorem}{Theorem}
-\newtheorem{formula}{Formula}
-\newtheorem{conclusion}{Conclusion}
+\newtheorem{theorem}{Thm}
 \newtheorem{lemma}{Lemma}
 \newtheorem{remark}{Remark}
-\newtheorem{observation}{Observation}
-\newtheorem{definition}{Definition}
+\newtheorem{observation}{Obs}
+\newtheorem{definition}{Def}
+\newtheorem{example}{Example}
 \newtheorem{exercise}{Ex}
-\newtheorem{example}{Eg}
 \newtheorem{fact}{Fact}
 \newtheorem{prop}{Prop}
 \newtheorem{coro}{Coro}
@@ -270,11 +265,159 @@
 % \thispagestyle{fancy}
 % \tableofcontents
 %%%%%%%%%%%%%include file here%%%%%%%%%%%%%%%
-Some notations:
+\paragraph{Notations} \mbox{}
 \begin{itemize}
-  \item Let $H \le G$, we use $G/H$ denotes
-    $\{\, gH : g \in G \,\}$ (left cosets of $H$).
+  \item Throughout this handout, $G$ is a group and $H \le G$.
+  \item All vector spaces are over $\Cb$.
+  \item The set of left cosets $\Set{ gH \given g \in G }$ is denoted by $G/H$.
+  \item $\abs{G/H}$ is the {\bf index} of $H$ in $G$, which is
+    denoted by $[G:H]$.
+  \item For a representation $\rho: G\to \GL{V}$, $\rho_g \in \GL{V}$ denotes
+    $\rho(g)$.
+  \item For a representation $\rho: G\to \GL{V}$, if a subspace $W$ of $V$
+    is $G$-invariant, then
+    \[
+      \rho^W: G\to \GL{W}, \quad g \mapsto \rho(g)|_W
+    \]
+    is a subrepresentation of $\rho$.
 \end{itemize}
+
+\begin{definition}
+  Given a representation $\rho: G \to \GL{V}$, we can restrict $\rho$ to $H$
+  to obtain a representation $\rho|_H: H \to \GL{V}$. We also denote this
+  representation by $\Res^G_H \rho : H\to \GL{V}$.
+\end{definition}
+
+\begin{definition}
+  Given a representation $\rho: G\to \GL{V}$ and a $H$-invariant
+  subspace $W \subset V$ w.r.t. $\rho|_H$. Let $x \in G/H$,
+  $\forall g, g' \in x, \exists h \in H$ s.t. $g' = gh$. Then
+  $\rho_g' W = \rho_g \rho_h W = \rho_g W$. That is, $\rho_g W$ only
+  depends on the coset which $g$ belongs to.
+  $\forall x \in G/H$, we denotes $\rho_g W$ by $W_x$ where $g \in x$.
+\end{definition}
+
+\begin{definition}
+  A representation $\rho: G\to \GL{V}$ is said to be {\bf induced} by
+  the representation $\theta: H\to \GL{W}$ if
+  \[
+    (\rho|_H)^W = \theta \quad \text{and} \quad V = \bigoplus_{x\in G/H} W_x.
+  \]
+  In particular, we have
+  $\displaystyle \dim V = \sum_{x\in G/H} \dim W_x = [G:H] \cdot \dim W$.
+\end{definition}
+
+\begin{example}
+  Consider $\displaystyle V = \sum_{g\in G} \Cb e_g$ with
+  $\rho = \rho^\text{reg}$. Let $\theta: H\to \GL{W}, \quad h \mapsto \rho_h$
+  be the restricted representation, where
+  $\displaystyle W = \sum_{h\in H} \Cb e_h$. Obviously $\rho$ is
+  induced by $\theta = \rho|_H$.
+\end{example}
+
+\begin{prop}
+  If $\rho_1, \rho_2$ are induced by $\theta_1, \theta_2$ respectively, then
+  $\rho_1 \oplus \rho_2$ is induced by $\theta_1 \oplus \theta_2$.
+
+  \begin{proof}
+    Let $\rho_1: G\to V_1, \rho_2: G\to V_2$ and
+    $\theta_1: H\to W, \theta_2: H\to U$. We have
+    \[
+      V_1 = \bigoplus_{x\in G/H} W_x \qquad V_2 = \bigoplus_{x\in G/H} U_x
+    \]
+    So $V_1 \oplus V_2$ can be written as
+    \[
+      \left(\bigoplus_{x\in G/H} W_x\right) \oplus
+      \left(\bigoplus_{x\in G/H} U_x\right)
+      = \bigoplus_{x\in G/H} (W_x \oplus U_x)
+      = \bigoplus_{x\in G/H} (W \oplus U)_x
+    \]
+    by the definition of the direct sum of two representations.
+  \end{proof}
+\end{prop}
+
+\begin{prop}
+  Let $\rho: G\to \GL{V}$ be induced by $\theta: H\to \GL{W}$. If $W_1$ is
+  a $H$-invariant subspace of $W$, then the subspace
+  $\displaystyle V_1 = \sum_{x \in G/H} (W_1)_x$ is $G$-invariant and
+  $\rho^{V_1}$ is induced by $\theta^{W_1}$.
+  \begin{proof}
+    Notice that $V$ is the direct sum of $W_x$ and $(W_1)_x \subset W$, so
+    $V_1$ must be the direct sum of $(W_1)_x$. And for any $g\in G$, we have
+    \[
+      \rho_g V_1 = \sum_{x\in G/H} \rho_g (W_1)_x
+      = \sum_{x\in G/H} (W_1)_{g\cdot x}
+      = \sum_{x'\in G/H} (W_1)_{x'} = V_1
+    \]
+    where $g\cdot x$ is the left multiplication action of $G$ on $G/H$.
+    So $V_1$ is $G$-invariant.
+  \end{proof}
+\end{prop}
+
+Now, we try to reformulate all the things in terms of module:
+
+\begin{definition}
+  Given $\rho: G\to \GL{V}$, it defines a $G$-action on $V$ by
+  $g\cdot v = \rho_g(v)$. We can regard $V$ as a $\Cb[G]$-module.
+  $\forall v \in V$,
+  \[
+    \left(\sum_{g\in G} r_g g\right) \cdot v
+    =\sum_{g\in G} r_g (g\cdot v)
+  \]
+\end{definition}
+
+\begin{definition}
+  Let $W$ be a $\Cb[H]$-module. We define a $\Cb[G]$-module $\Ind^G_H W$ as
+  \[
+    \Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W
+  \]
+\end{definition}
+
+\begin{observation}
+  Let $\rho: G \to \GL{V}$ and $W$ be a $H$-invariant subspace of $V$.
+  Define a map
+  \[
+    f: \Cb[G] \times W \to V, \quad
+    \left(\sum_{g\in G} r_g g\right) \otimes w \mapsto
+    \sum_{g\in G} r_g \rho_g(w)
+  \]
+  This is $\Cb[H]$-bilinear with $h \cdot w = \rho_h(w), \quad \forall h\in H,
+  w\in W$.
+  By the universal property, $\exists!$ $\Cb[H]$-module homomorphism
+  $\varphi: \Ind^G_H W \to V$ s.t.
+  \[
+    \begin{tikzcd}
+      \Cb[G] \times W \arrow[r] \arrow[dr, "f"']
+      & \Ind^G_H W \arrow[d, "\varphi"] \\
+      & V
+    \end{tikzcd}
+  \]
+  Actually, we can extend $\varphi$ to a $\Cb[G]$-module homomorphism
+  since $\Ind^G_H W$ can be regarded as a $\Cb[G]$-module and $V$ is also a
+  $\Cb[G]$-module.
+\end{observation}
+
+\begin{observation}
+  $\forall gH \in G/H$, let $gH \otimes_{\Cb[H]} W$ denotes the set
+  \[
+    \Gen*{ gh \otimes w \given \forall h \in H, w \in W}_{\Cb 1_H}
+  \]
+  It is easy to find that
+  \[
+    \Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W
+    \cong \bigoplus_{x \in G/H} x \otimes_{\Cb[H]} W
+  \]
+\end{observation}
+
+\begin{theorem}[Existence and Uniqueness of the Induced Representation]
+
+\end{theorem}
+
+% the character of the induced reps
+
+\begin{theorem}[Mackey's theorem]
+\end{theorem}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \bibliographystyle{plain}
 % \bibliography{journal.bib}
