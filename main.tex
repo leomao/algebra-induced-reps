@@ -280,8 +280,11 @@
       \rho^W: G\to \GL{W}, \quad g \mapsto \rho(g)|_W
     \]
     is a subrepresentation of $\rho$.
+  \item Picking an element from each coset in $G/H$ forms a 
+    {\bf system of representatives} of $G/H$.
 \end{itemize}
 
+\paragraph{Motivation} \mbox{}
 \begin{definition}
   Given a representation $\rho: G \to \GL{V}$, we can restrict $\rho$ to $H$
   to obtain a representation $\rho|_H: H \to \GL{V}$. We also denote this
@@ -290,10 +293,10 @@
 
 \begin{definition}
   Given a representation $\rho: G\to \GL{V}$ and a $H$-invariant
-  subspace $W \subset V$ w.r.t. $\rho|_H$. Let $x \in G/H$,
-  $\forall g, g' \in x, \exists h \in H$ s.t. $g' = gh$. Then
-  $\rho_g' W = \rho_g \rho_h W = \rho_g W$. That is, $\rho_g W$ only
-  depends on the coset which $g$ belongs to.
+  subspace $W \subset V$ w.r.t. $\rho|_H$. Let $R$ be a system of
+  representatives of $G/H$, $\forall g \in G$, $\exists! r \in R, h \in H$ s.t.
+  $g = rh$. Then $\rho_g W = \rho_r \rho_h W = \rho_r W$.
+  That is, $\rho_g W$ only depends on the coset which $g$ belongs to.
   $\forall x \in G/H$, we denotes $\rho_g W$ by $W_x$ where $g \in x$.
 \end{definition}
 
@@ -312,7 +315,7 @@
   $\rho = \rho^\text{reg}$. Let $\theta: H\to \GL{W}, \quad h \mapsto \rho_h$
   be the restricted representation, where
   $\displaystyle W = \sum_{h\in H} \Cb e_h$. Obviously $\rho$ is
-  induced by $\theta = \rho|_H$.
+  induced by $\theta = (\rho|_H)^W$.
 \end{example}
 
 \begin{prop}
@@ -354,6 +357,7 @@
   \end{proof}
 \end{prop}
 
+\paragraph{Induced Module}
 Now, we try to reformulate all the things in terms of module:
 
 \begin{definition}
@@ -361,61 +365,248 @@ Now, we try to reformulate all the things in terms of module:
   $g\cdot v = \rho_g(v)$. We can regard $V$ as a $\Cb[G]$-module.
   $\forall v \in V$,
   \[
-    \left(\sum_{g\in G} r_g g\right) \cdot v
-    =\sum_{g\in G} r_g (g\cdot v)
+    \left(\sum_{g\in G} c_g g\right) \cdot v
+    =\sum_{g\in G} c_g (g\cdot v)
   \]
 \end{definition}
 
-\begin{definition}
-  Let $W$ be a $\Cb[H]$-module. We define a $\Cb[G]$-module $\Ind^G_H W$ as
-  \[
-    \Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W
-  \]
-\end{definition}
-
-\begin{observation}
-  Let $\rho: G \to \GL{V}$ and $W$ be a $H$-invariant subspace of $V$.
-  Define a map
-  \[
-    f: \Cb[G] \times W \to V, \quad
-    \left(\sum_{g\in G} r_g g\right) \otimes w \mapsto
-    \sum_{g\in G} r_g \rho_g(w)
-  \]
-  This is $\Cb[H]$-bilinear with $h \cdot w = \rho_h(w), \quad \forall h\in H,
-  w\in W$.
-  By the universal property, $\exists!$ $\Cb[H]$-module homomorphism
-  $\varphi: \Ind^G_H W \to V$ s.t.
+\begin{definition}[Universal Property]
+  Let $W$ be a $\Cb[H]$-module, $U$ be a $\Cb[G]$-module.
+  An induced representation of $W$ is a $\Cb[G]$-module $\Ind^G_H W$ and the
+  map $i: W \to \Ind^G_H W$ satisfying the universal property:
+  
+  For any $\Cb[H]$-module homomorphism $f: W\to U$, $\exists!$ $\Cb[G]$-module
+  homomorphism $\hat{f}$ s.t.
   \[
     \begin{tikzcd}
-      \Cb[G] \times W \arrow[r] \arrow[dr, "f"']
-      & \Ind^G_H W \arrow[d, "\varphi"] \\
-      & V
+      W \arrow[r, "i"] \arrow[dr, "f"'] & \Ind^G_H W \arrow[d, "\hat{f}"] \\
+                                        & U
     \end{tikzcd}
   \]
-  Actually, we can extend $\varphi$ to a $\Cb[G]$-module homomorphism
-  since $\Ind^G_H W$ can be regarded as a $\Cb[G]$-module and $V$ is also a
-  $\Cb[G]$-module.
-\end{observation}
+\end{definition}
 
 \begin{observation}
-  $\forall gH \in G/H$, let $gH \otimes_{\Cb[H]} W$ denotes the set
+  If $\rho: G\to \GL{V}$ is induced by $\theta: H\to \GL{W}$, i.e.
   \[
-    \Gen*{ gh \otimes w \given \forall h \in H, w \in W}_{\Cb 1_H}
+    V = \bigoplus_{x \in G/H} W_x,
   \]
-  It is easy to find that
-  \[
-    \Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W
-    \cong \bigoplus_{x \in G/H} x \otimes_{\Cb[H]} W
-  \]
+  then $V$ satisfies the universal property with the inclusion map:
+  $i: W\to V, w \mapsto w$.
+  \begin{proof}
+    For each $x \in G/H$, consider the map
+    \[
+      f_x: W_x \to U, \quad w_x \mapsto gf(g^{-1}w_x)
+      \qquad \text{for a fixed~} g \in x
+    \]
+    For another $g_1 \in x$, $\exists h \in H$ s.t. $g_1 = gh$, then
+    $g_1f(g_1^{-1}w_x) = ghf(h^{-1}g^{-1}w_x) = gf(g^{-1}w_x)$ since
+    $f$ is a $\Cb[H]$-module homomorphism.
+    $\implies$ This map doesn't depend on the choice of $g$. 
+
+    Since each $f_x$ is a $\Cb$-module homomorphism,
+    by the universal property of the direct sum, $\exists!$ $\Cb$-module
+    homomorphism $\hat{f}$ s.t.
+    \[
+      \begin{tikzcd}
+        W_x \arrow[r, "i"] \arrow[dr, "f_x"'] & V \arrow[d, "\hat{f}"] \\
+                                              & U
+      \end{tikzcd}
+    \]
+    Now we verify that $\hat{f}$ is $G$-equivariant.
+    Since $\hat{f}$ is $\Cb$-module homomorphism, we can just check
+    $\forall x \in G/H, g\in G, w_x \in W_x, g\hat{f}(w_x) = \hat{f}(gw_x)$.
+    By the definition, $\exists w_{gx} \in W_{gx}$ s.t. $w_{gx} = gw_x$.
+    So
+    \[
+      \hat{f}(gw_x) = \hat{f}(w_{gx})
+                    = gg_1f(g_1^{-1}g^{-1}w_{gx})
+                    = gg_1f(g_1^{-1}w_x)
+                    = g\hat{f}(w_x)
+      \qquad g_1 \in x
+    \]
+    We conclude that $\hat{f}$ is a $\Cb[G]$-module homomorphism.
+    
+    Now for any $w_x \in W_x$, $\exists g\in x, w \in W$ s.t. $w_x = gw$,
+    \[
+      \hat{f}(w_x) = \hat{f}(gw) = g\hat{f}(w) = gf(w)
+    \]
+    This doesn't depend on the choice of $g$. So $\hat{f}$ is determined by $f$,
+    hence $\hat{f}$ is unique.
+  \end{proof}
 \end{observation}
 
 \begin{theorem}[Existence and Uniqueness of the Induced Representation]
-
+  Given a representation $W$ of $H$, the induced representation
+  $\Ind^G_H W$ of $G$ exists and is unique up to isomorphism.
+  \begin{proof}
+    \begin{description}
+      \item[Existence:]
+        We just prove that the $\Cb[G]$-module $\Cb[G] \otimes_{\Cb[H]} W$
+        satisfies the universal property.
+        The inclusion map is $i: W \to \Cb[G]\otimes_{\Cb[H]} W,
+        \quad w \mapsto (1\otimes w)$.
+        
+        First we define a $\Cb[H]$-bilinear map
+        \[
+          \tilde{f}: \Cb[G] \times W \to U, \quad
+          \left(\sum_{g\in G} c_g g, w\right) \mapsto
+          \sum_{g\in G} c_g gf(w).
+        \]
+        By the universal property of the tensor product, $\exists!$
+        $\Cb[H]$-module homomorphism $\hat{f}$ s.t.
+        \[
+          \begin{tikzcd}
+            \Cb[G] \times W \arrow[r, "\hat{i}"] \arrow[dr, "\tilde{f}"']
+            & \Cb[G]\otimes_{\Cb[H]}W \arrow[d, "\hat{f}"] \\
+            & U
+          \end{tikzcd}
+        \]
+        Verifying that $\hat{f}$ is $G$-equivariant is easy.
+        So $\hat{f}$ is a $\Cb[G]$-module homomorphism.
+        In particular, we have $\hat{f}(1 \otimes w) = \tilde{f}(1, w) = f(w)$.
+        
+        To prove $\hat{f}$ is unique, It is sufficient to show that for all
+        elements in the generating set of $\Cb[G] \otimes_{\Cb[H]} W$,
+        the value of $\hat{f}$ can be determined by $f$.
+        Note that $\hat{f}$ is a $\Cb[G]$-module homomorphism. So
+        $\forall c \in \Cb[G], w\in W$, $\hat{f}(c \otimes w)
+        = \hat{f}(c (1\otimes w)) = c\hat{f}(1\otimes w) = cf(w)$.
+        So $\hat{f}$ is unique.
+      \item[Uniqueness:] Just like how we prove the uniqueness for
+        other universal properties.
+        \qedhere
+    \end{description}
+  \end{proof}
 \end{theorem}
+
+\begin{definition}
+  By the above theorem, we can define $\Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W$.
+\end{definition}
+
+\begin{remark} \mbox{}
+  \begin{enumerate}
+    \item If $V$ is induced by $W$ and if $E$ is a $\Cb[G]$-module, we have a
+      canoical isomorphism
+      \[
+        \Hom_H(W, E) \cong \Hom_G(V, E),
+      \]
+      where $\Hom_G(V, E)$ denotes the vector space of $\Cb[G]$-homomorphisms
+      of $V$ into $E$.
+    \item Induction is transitive: If $H \le K \le G$, then
+      \[
+        \Ind^G_K (\Ind^K_H W) \cong \Ind^G_H W
+      \]
+  \end{enumerate}
+\end{remark}
+
+\begin{prop}
+  Let $V$ be a $\Cb[G]$-module which is a direct sum
+  $V = \bigoplus_{i \in A} W_i$ of vector subspaces {\it permuted transitively}
+  by $G$, $A$ is a index set. Let $i_0 \in A, W = W_{i_0}$ and
+  $H$ be the stabilizer of $W$ in $G$.
+  Then $W$ is a $\Cb[H]$-module and $V$ is induced by $W$.
+\end{prop}
 
 % the character of the induced reps
 
+\paragraph{Character of the Induced Representation}
+Now, suppose $\rho: G\to \GL{V}$ is induced by $\theta: H\to \GL{W}$.
+Since $\theta$ determines $\rho$ up to isomorphism, we ought to compute
+$\chi_\rho$ from $\chi_\theta$.
+
+\begin{definition}
+  Let $f \in \Cc(H)$ be a class function on $H$, consider the function
+  $f'$ on $G$ defined as
+  \[
+    f'(u) = \frac{1}{\abs{H}} \sum_{\substack{t\in G\\ t^{-1}ut \in H}}
+    f(t^{-1}ut) \quad \forall u\in G
+  \]
+  We say that $f'$ is induced by $f$ and denoted by $\Ind^G_H f$.
+  Note that $f' \in \Cc(G)$ since
+  \[
+    f'(v^{-1}uv) = \frac{1}{\abs{H}} \sum_{\substack{t\in G\\ t^{-1}(v^{-1}uv)t \in H}}
+    f(t^{-1}(v^{-1}uv)t)
+    = \frac{1}{\abs{H}} \sum_{\substack{t'\in G\\ t'^{-1}ut' \in H}}
+    f(t'^{-1}ut') = f'(u) \quad \forall u, v\in G
+  \]
+\end{definition}
+
+\begin{theorem}[Frobenius Reciprocity]
+  \label{thm:frob}
+  Let $\theta: H\to \GL{W}$ and $\rho: G\to \GL{V}$ be representations of
+  $H, G$ respectively. Then there is a unique isomorphism
+  \[
+    \varphi: \Hom_H(W, \Res^G_H V) \isoto \Hom_G(\Ind^G_H W, V), \quad
+    \alpha \mapsto \beta
+  \]
+  such that $\alpha(w) = \beta(w), \quad \forall w \in W$.
+  $(\Ind^G_H, \Res^G_H)$ are adjoint functors.
+  \begin{proof}
+    Given $\alpha \in \Hom_H(W, \Res^G_H V)$, define
+    $\beta \in \Hom_G(\Ind^G_H W, V)$ by the universal property.
+    This map is $\Cb$-module homomorphism obviously.
+
+    Now, given $\beta \in \Hom_G(\Ind^G_H W, V)$, define
+    $\alpha \in \Hom_H(W, \Res^G_H V)$ by
+    \[
+      \alpha(w) = \beta(1\otimes w)
+    \]
+    Then clearly $\alpha = \beta \circ i$, where $i: W\to \Ind^G_H W$ is the
+    inclusion map.
+
+    By the universal property, $\beta$ is unique, so $\varphi(\alpha) = \beta$.
+    This mapping is an inverse of $\varphi$.
+    
+    $\implies$ $\varphi$ is an isomorphism.
+  \end{proof}
+\end{theorem}
+
+\begin{definition}
+  Let $V_1, V_2$ be two $\Cb[G]$-modules, we define
+  $\inpd{V_1, V_2}_G = \dim \Hom_G(V_1, V_2)$.
+\end{definition}
+
+\begin{lemma}
+  \label{lemma:inpd}
+  If $\phi_1, \phi_2$ are the characters of $V_1, V_2$, we have
+  $\inpd{\phi_1, \phi_2}_G = \inpd{V_1, V_2}_G$.
+  \begin{proof}
+  \end{proof}
+\end{lemma}
+
+\begin{coro}[Frobenius Formula]
+  Let $\psi \in \Cc(H)$, $\phi \in \Cc(G)$. Then
+  \[
+    \inpd{\psi,\Res^G_H \phi}_H = \inpd{\Ind^G_H \psi,\phi}_G.
+  \]
+  \begin{proof}
+    Since each class function is a linear combination of irreducible
+    characters, this can be obtained directly by Lemma \ref{lemma:inpd} and
+    Thm \ref{thm:frob}.
+  \end{proof}
+\end{coro}
+
+\begin{coro}
+  Let $\rho: G\to \GL{V}$ be induced by $\theta:H\to \GL{W}$ and
+  $R$ be a representatives of $G/H$. Then $\chi_\rho = \Ind^G_H \chi_\theta$.
+  \begin{proof}
+    By the uniqueness of the induced representation, $V = \Ind^G_H W$.
+    Let $\chi$ be an irreducible character of $G$ with
+    $\sigma: G\to \GL{U}$. We have
+    \[
+      \inpd{\chi_\rho, \chi}_G = \inpd{\Ind^G_H W, U}_G
+      = \inpd{W, \Res^G_H U}_H = \inpd{\chi_\theta, \Res^G_H \chi}_H
+      = \inpd{\Ind^G_H \chi_\theta, \chi}_G
+    \]
+    So $\chi_\rho = \Ind^G_H \chi_\theta$.
+  \end{proof}
+\end{coro}
+
+\paragraph{Restrict the Induced Representation}
+Now we are interesting in the restricted representation of the induced
+representation. Let $K \le G$.
 \begin{theorem}[Mackey's theorem]
+  % K\G/H
 \end{theorem}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
