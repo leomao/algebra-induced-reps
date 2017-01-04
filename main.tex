@@ -375,8 +375,9 @@ Now, we try to reformulate all the things in terms of module:
 
 \begin{definition}[Universal Property]
   Let $W$ be a $\Cb[H]$-module, $U$ be a $\Cb[G]$-module.
-  An induced representation of $W$ is a $\Cb[G]$-module $\Ind^G_H W$ and the
-  map $i: W \to \Ind^G_H W$ satisfying the universal property:
+  An induced representation of $W$ is a $\Cb[G]$-module $\Ind^G_H W$ and a
+  $\Cb[H]$-module homomorphism $i: W \to \Ind^G_H W$ satisfying the
+  universal property:
   
   For any $\Cb[H]$-module homomorphism $f: W\to U$, $\exists!$ $\Cb[G]$-module
   homomorphism $\hat{f}$ s.t.
@@ -543,7 +544,7 @@ $\chi_\rho$ from $\chi_\theta$.
     \varphi: \Hom_H(W, \Res^G_H V) \isoto \Hom_G(\Ind^G_H W, V), \quad
     \alpha \mapsto \beta
   \]
-  such that $\alpha(w) = \beta(w), \quad \forall w \in W$.
+  such that $\alpha(w) = \beta(1 \otimes w), \quad \forall w \in W$.
   $(\Ind^G_H, \Res^G_H)$ are adjoint functors.
   \begin{proof}
     Given $\alpha \in \Hom_H(W, \Res^G_H V)$, define
@@ -562,6 +563,27 @@ $\chi_\rho$ from $\chi_\theta$.
     This mapping is an inverse of $\varphi$.
     
     $\implies$ $\varphi$ is an isomorphism.
+  \end{proof}
+\end{theorem}
+
+\begin{theorem}[Frobenius Formula]
+  Let $\psi \in \Cc(H)$, $\phi \in \Cc(G)$. Then
+  \[
+    \inpd{\psi,\Res^G_H \phi}_H = \inpd{\Ind^G_H \psi,\phi}_G.
+  \]
+  \begin{proof}
+    \begin{align*}
+      \inpd{\psi,\Res^G_H \phi}_H
+      &= \frac{1}{\abs{H}} \sum_{y \in H} \ob{\psi(y)} \phi(y) \\
+      &= \frac{1}{\abs{G}\abs{H}} \sum_{t \in G} \sum_{y \in H} \ob{\psi(y)} \phi(y) \\
+      &= \frac{1}{\abs{G}\abs{H}} \sum_{t \in G}
+        \sum_{\substack{g\in G\\ t^{-1}gt \in H}} \ob{\psi(t^{-1}gt)} \phi(t^{-1}gt)
+        & (y = t^{-1}gt) \\
+      &= \frac{1}{\abs{G}} \sum_{g\in G} \left( \frac{1}{\abs{H}}
+        \sum_{\substack{t\in G\\ t^{-1}gt \in H}} \ob{\psi(t^{-1}gt)} \right) \phi(g) \\
+      &= \frac{1}{\abs{G}} \sum_{g\in G} \ob{\Ind^G_H \psi(g)} \phi(g) \\
+      &= \inpd{\Ind^G_H \psi,\phi}_G.
+    \end{align*}
   \end{proof}
 \end{theorem}
 
@@ -610,18 +632,6 @@ $\chi_\rho$ from $\chi_\theta$.
       = \inpd{\Ind^G_H \chi_\theta, \chi}_G
     \]
     So $\chi_\rho = \Ind^G_H \chi_\theta$.
-  \end{proof}
-\end{coro}
-
-\begin{coro}[Frobenius Formula]
-  Let $\psi \in \Cc(H)$, $\phi \in \Cc(G)$. Then
-  \[
-    \inpd{\psi,\Res^G_H \phi}_H = \inpd{\Ind^G_H \psi,\phi}_G.
-  \]
-  \begin{proof}
-    Since each class function is a linear combination of irreducible
-    characters, this can be obtained directly by Prob \ref{prob:linear}
-    , Lemma \ref{lemma:inpd}, Thm \ref{thm:frob} and Coro \ref{coro:chi}.
   \end{proof}
 \end{coro}
 
