@@ -196,6 +196,8 @@
 \newcommand*\acts{\curvearrowright}
 \newcommand*\revacts{\curvearrowleft}
 
+\newcommand*\bsl{\backslash}
+
 % just to make sure it exists
 \providecommand\given{}
 % can be useful to refer to this outside \Set
@@ -281,7 +283,8 @@
     \]
     is a subrepresentation of $\rho$.
   \item Picking an element from each coset in $G/H$ forms a 
-    {\bf system of representatives} of $G/H$.
+    {\bf set of representatives} $S$ of $G/H$.
+    We write $s\in S$ as $s\in G/H$ for convenience.
 \end{itemize}
 
 \paragraph{Motivation} \mbox{}
@@ -293,21 +296,21 @@
 
 \begin{definition}
   Given a representation $\rho: G\to \GL{V}$ and a $H$-invariant
-  subspace $W \subset V$ w.r.t. $\rho|_H$. Let $R$ be a system of
-  representatives of $G/H$, $\forall g \in G$, $\exists! r \in R, h \in H$ s.t.
-  $g = rh$. Then $\rho_g W = \rho_r \rho_h W = \rho_r W$.
-  That is, $\rho_g W$ only depends on the coset which $g$ belongs to.
-  $\forall x \in G/H$, we denotes $\rho_g W$ by $W_x$ where $g \in x$.
+  subspace $W \subset V$ w.r.t. $\rho|_H$. Let $s\in G/H$, $\forall g \in sH$,
+  $\exists! h \in H$ s.t. $g = sh$.
+  Then $\rho_g W = \rho_s \rho_h W = \rho_s W$. That is, $\rho_g W$ only
+  depends on the coset which $g$ belongs to. $\forall s \in G/H$,
+  we denotes $\rho_g W$ by $sW$.
 \end{definition}
 
 \begin{definition}
   A representation $\rho: G\to \GL{V}$ is said to be {\bf induced} by
   the representation $\theta: H\to \GL{W}$ if
   \[
-    (\rho|_H)^W = \theta \quad \text{and} \quad V = \bigoplus_{x\in G/H} W_x.
+    (\rho|_H)^W = \theta \quad \text{and} \quad V = \bigoplus_{s\in G/H} sW.
   \]
   In particular, we have
-  $\displaystyle \dim V = \sum_{x\in G/H} \dim W_x = [G:H] \cdot \dim W$.
+  $\displaystyle \dim V = \sum_{s\in G/H} \dim sW = [G:H] \cdot \dim W$.
 \end{definition}
 
 \begin{example}
@@ -326,14 +329,14 @@
     Let $\rho_1: G\to V_1, \rho_2: G\to V_2$ and
     $\theta_1: H\to W, \theta_2: H\to U$. We have
     \[
-      V_1 = \bigoplus_{x\in G/H} W_x \qquad V_2 = \bigoplus_{x\in G/H} U_x
+      V_1 = \bigoplus_{s\in G/H} sW \qquad V_2 = \bigoplus_{s\in G/H} sU
     \]
     So $V_1 \oplus V_2$ can be written as
     \[
-      \left(\bigoplus_{x\in G/H} W_x\right) \oplus
-      \left(\bigoplus_{x\in G/H} U_x\right)
-      = \bigoplus_{x\in G/H} (W_x \oplus U_x)
-      = \bigoplus_{x\in G/H} (W \oplus U)_x
+      \left(\bigoplus_{s\in G/H} sW\right) \oplus
+      \left(\bigoplus_{s\in G/H} sU\right)
+      = \bigoplus_{s\in G/H} (sW \oplus sU)
+      = \bigoplus_{s\in G/H} s(W \oplus U)
     \]
     by the definition of the direct sum of two representations.
   \end{proof}
@@ -342,18 +345,18 @@
 \begin{prop}
   Let $\rho: G\to \GL{V}$ be induced by $\theta: H\to \GL{W}$. If $W_1$ is
   a $H$-invariant subspace of $W$, then the subspace
-  $\displaystyle V_1 = \sum_{x \in G/H} (W_1)_x$ is $G$-invariant and
+  $\displaystyle V_1 = \sum_{s \in G/H} sW_1$ is $G$-invariant and
   $\rho^{V_1}$ is induced by $\theta^{W_1}$.
   \begin{proof}
-    Notice that $V$ is the direct sum of $W_x$ and $(W_1)_x \subset W$, so
-    $V_1$ must be the direct sum of $(W_1)_x$. And for any $g\in G$, we have
+    Notice that $V$ is the direct sum of $sW$ and $sW_1 \subset W$, so
+    $V_1$ must be the direct sum of $sW_1$. And for any $g\in G$, we have
     \[
-      \rho_g V_1 = \sum_{x\in G/H} \rho_g (W_1)_x
-      = \sum_{x\in G/H} (W_1)_{g\cdot x}
-      = \sum_{x'\in G/H} (W_1)_{x'} = V_1
+      \rho_g V_1 = \sum_{s\in G/H} \rho_g sW_1
+      = \sum_{s\in G/H} (gs)W_1
+      = \sum_{s'\in G/H} s'W_1 = V_1
     \]
-    where $g\cdot x$ is the left multiplication action of $G$ on $G/H$.
-    So $V_1$ is $G$-invariant.
+    where $\Set{ gs \given s\in G/H }$ is another set of representatives of
+    $G/H$. So $V_1$ is $G$-invariant.
   \end{proof}
 \end{prop}
 
@@ -388,50 +391,48 @@ Now, we try to reformulate all the things in terms of module:
 \begin{observation}
   If $\rho: G\to \GL{V}$ is induced by $\theta: H\to \GL{W}$, i.e.
   \[
-    V = \bigoplus_{x \in G/H} W_x,
+    V = \bigoplus_{s \in G/H} sW,
   \]
   then $V$ satisfies the universal property with the inclusion map:
   $i: W\to V, w \mapsto w$.
   \begin{proof}
-    For each $x \in G/H$, consider the map
+    For each $s \in G/H$, consider the map
     \[
-      f_x: W_x \to U, \quad w_x \mapsto gf(g^{-1}w_x)
-      \qquad \text{for a fixed~} g \in x
+      f_s: sW \to U, \quad w_s \mapsto sf(s^{-1}w_s)
     \]
-    For another $g_1 \in x$, $\exists h \in H$ s.t. $g_1 = gh$, then
-    $g_1f(g_1^{-1}w_x) = ghf(h^{-1}g^{-1}w_x) = gf(g^{-1}w_x)$ since
+    For another $g \in sH$, $\exists h \in H$ s.t. $g = sh$, then
+    $gf(g^{-1}w_s) = shf(h^{-1}s^{-1}w_s) = sf(s^{-1}w_s)$ since
     $f$ is a $\Cb[H]$-module homomorphism.
-    $\implies$ This map doesn't depend on the choice of $g$. 
+    $\implies$ This map doesn't depend on the choice of representatives.
 
-    Since each $f_x$ is a $\Cb$-module homomorphism,
+    Since each $f_s$ is a $\Cb$-module homomorphism,
     by the universal property of the direct sum, $\exists!$ $\Cb$-module
     homomorphism $\hat{f}$ s.t.
     \[
       \begin{tikzcd}
-        W_x \arrow[r, "i"] \arrow[dr, "f_x"'] & V \arrow[d, "\hat{f}"] \\
+        sW \arrow[r, "i"] \arrow[dr, "f_s"'] & V \arrow[d, "\hat{f}"] \\
                                               & U
       \end{tikzcd}
     \]
     Now we verify that $\hat{f}$ is $G$-equivariant.
     Since $\hat{f}$ is $\Cb$-module homomorphism, we can just check
-    $\forall x \in G/H, g\in G, w_x \in W_x, g\hat{f}(w_x) = \hat{f}(gw_x)$.
-    By the definition, $\exists w_{gx} \in W_{gx}$ s.t. $w_{gx} = gw_x$.
+    $\forall s \in G/H, g\in G, w_s \in sW, g\hat{f}(w_s) = \hat{f}(gw_s)$.
+    By the definition, $\exists w_{gs} \in W_{gs}$ s.t. $w_{gs} = gw_s$.
     So
     \[
-      \hat{f}(gw_x) = \hat{f}(w_{gx})
-                    = gg_1f(g_1^{-1}g^{-1}w_{gx})
-                    = gg_1f(g_1^{-1}w_x)
-                    = g\hat{f}(w_x)
-      \qquad g_1 \in x
+      \hat{f}(gw_s) = \hat{f}(w_{gs})
+                    = gsf(s^{-1}g^{-1}w_{gs})
+                    = gsf(s^{-1}w_s)
+                    = g\hat{f}(w_s)
     \]
     We conclude that $\hat{f}$ is a $\Cb[G]$-module homomorphism.
     
-    Now for any $w_x \in W_x$, $\exists g\in x, w \in W$ s.t. $w_x = gw$,
+    Now for any $w_s \in W_s$, $\exists w \in W$ s.t. $w_s = gw$,
     \[
-      \hat{f}(w_x) = \hat{f}(gw) = g\hat{f}(w) = gf(w)
+      \hat{f}(w_s) = \hat{f}(sw) = s\hat{f}(w) = sf(w)
     \]
-    This doesn't depend on the choice of $g$. So $\hat{f}$ is determined by $f$,
-    hence $\hat{f}$ is unique.
+    This doesn't depend on the choice of representatives. So $\hat{f}$ is
+    determined by $f$, hence $\hat{f}$ is unique.
   \end{proof}
 \end{observation}
 
@@ -480,23 +481,14 @@ Now, we try to reformulate all the things in terms of module:
 \end{theorem}
 
 \begin{definition}
-  By the above theorem, we can define $\Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W$.
+  By the theorem above, we can define $\Ind^G_H W = \Cb[G] \otimes_{\Cb[H]} W$.
 \end{definition}
 
-\begin{remark} \mbox{}
-  \begin{enumerate}
-    \item If $V$ is induced by $W$ and if $E$ is a $\Cb[G]$-module, we have a
-      canoical isomorphism
-      \[
-        \Hom_H(W, E) \cong \Hom_G(V, E),
-      \]
-      where $\Hom_G(V, E)$ denotes the vector space of $\Cb[G]$-homomorphisms
-      of $V$ into $E$.
-    \item Induction is transitive: If $H \le K \le G$, then
-      \[
-        \Ind^G_K (\Ind^K_H W) \cong \Ind^G_H W
-      \]
-  \end{enumerate}
+\begin{remark}
+  Induction is transitive: If $H \le K \le G$, then
+  \[
+    \Ind^G_K (\Ind^K_H W) \cong \Ind^G_H W
+  \]
 \end{remark}
 
 \begin{prop}
@@ -515,6 +507,12 @@ Since $\theta$ determines $\rho$ up to isomorphism, we ought to compute
 $\chi_\rho$ from $\chi_\theta$.
 
 \begin{definition}
+  Let $f \in \Cc(G)$ be a class function on $G$. Then
+  $\Res^G_H f = f|_H$ is a class function on $H$, i.e.
+  $\Res^G_H f \in \Cc(H)$.
+\end{definition}
+
+\begin{definition}
   Let $f \in \Cc(H)$ be a class function on $H$, consider the function
   $f'$ on $G$ defined as
   \[
@@ -530,6 +528,12 @@ $\chi_\rho$ from $\chi_\theta$.
     f(t'^{-1}ut') = f'(u) \quad \forall u, v\in G
   \]
 \end{definition}
+
+\begin{prop}
+  \label{prob:linear}
+  $\Res^G_H: \Cc(G) \to \Cc(H)$ and $\Ind^G_H: \Cc(H) \to \Cc(G)$ are both
+  $\Cb$-module homomorphism.
+\end{prop}
 
 \begin{theorem}[Frobenius Reciprocity]
   \label{thm:frob}
@@ -566,27 +570,35 @@ $\chi_\rho$ from $\chi_\theta$.
   $\inpd{V_1, V_2}_G = \dim \Hom_G(V_1, V_2)$.
 \end{definition}
 
+\begin{prop}
+  \label{prop:dimop}
+  Let $W, V$ be two $\Cb[G]$-modules and $W = W_1\oplus W_2$ where
+  $W_1, W_2$ are $G$-invariant. Then
+  \begin{align*}
+    \Hom_G(W, V) &= \Hom_G(W_1, V) \oplus \Hom_G(W_2, V) \\
+    \Hom_G(V, W) &= \Hom_G(V, W_1) \oplus \Hom_G(V, W_2)
+  \end{align*}
+  \begin{proof}
+    Just like how we prove Thm \ref{thm:frob},
+    this is easy to show by the universal property of the direct sum
+    and the direct product.
+    (In this case, the direct sum can be regard as the direct product.)
+  \end{proof}
+\end{prop}
+
 \begin{lemma}
   \label{lemma:inpd}
   If $\phi_1, \phi_2$ are the characters of $V_1, V_2$, we have
   $\inpd{\phi_1, \phi_2}_G = \inpd{V_1, V_2}_G$.
   \begin{proof}
+    By Prop \ref{prop:dimop}, we only need to check when $\phi_1, \phi_2$
+    are irreducible characters.
+    Then this is just the result of Schur's lemma.
   \end{proof}
 \end{lemma}
 
-\begin{coro}[Frobenius Formula]
-  Let $\psi \in \Cc(H)$, $\phi \in \Cc(G)$. Then
-  \[
-    \inpd{\psi,\Res^G_H \phi}_H = \inpd{\Ind^G_H \psi,\phi}_G.
-  \]
-  \begin{proof}
-    Since each class function is a linear combination of irreducible
-    characters, this can be obtained directly by Lemma \ref{lemma:inpd} and
-    Thm \ref{thm:frob}.
-  \end{proof}
-\end{coro}
-
 \begin{coro}
+  \label{coro:chi}
   Let $\rho: G\to \GL{V}$ be induced by $\theta:H\to \GL{W}$ and
   $R$ be a representatives of $G/H$. Then $\chi_\rho = \Ind^G_H \chi_\theta$.
   \begin{proof}
@@ -602,13 +614,121 @@ $\chi_\rho$ from $\chi_\theta$.
   \end{proof}
 \end{coro}
 
+\begin{coro}[Frobenius Formula]
+  Let $\psi \in \Cc(H)$, $\phi \in \Cc(G)$. Then
+  \[
+    \inpd{\psi,\Res^G_H \phi}_H = \inpd{\Ind^G_H \psi,\phi}_G.
+  \]
+  \begin{proof}
+    Since each class function is a linear combination of irreducible
+    characters, this can be obtained directly by Prob \ref{prob:linear}
+    , Lemma \ref{lemma:inpd}, Thm \ref{thm:frob} and Coro \ref{coro:chi}.
+  \end{proof}
+\end{coro}
+
 \paragraph{Restrict the Induced Representation}
 Now we are interesting in the restricted representation of the induced
-representation. Let $K \le G$.
-\begin{theorem}[Mackey's theorem]
-  % K\G/H
+representation. Let $K \le G$. $\rho: H\to \GL{W}$ is a representation
+of $H$. $\Ind^G_H W$ is the induced representation.
+
+\begin{definition}
+  The set of double cosets of $K, H$ is $K \bsl G / H \defeq
+  \Set{ KgH \given g \in G}$.
+  Let $S$ be a set of representatives of $K\bsl G/H$, i.e.
+  $G$ is the disjoint union of $KsH$ for $s\in S$.
+  For convenience, we write $s \in K\bsl G/H$ to denote $s\in S$.
+\end{definition}
+
+\begin{definition}
+  For $s \in K\bsl G/H$, let $H_s = sHs^{-1} \cap K$,
+  which is a subgroup of $K$.
+  ($H_s$ doens't depend on the choice of the representative)
+\end{definition}
+
+\begin{definition}
+  Define $\rho^s: H_s \to \GL{W}, \quad x \mapsto \rho(s^{-1}xs)$.
+  Then this is a representation of $H_s$, denoted as $W_s$.
+  Since $H_s \le K$, $\Ind^K_{H_s} W_s$ is defined.
+\end{definition}
+
+\begin{observation}
+  We know that $\Ind^G_H W \cong \bigoplus_{x\in G/H} xW$. Let $V = \Ind^G_H W$.
+  Given $s \in K\bsl G/H$, consider $x \in KsH$. We can write $x = ksh$ for
+  some $k\in K, h \in H$, then $xW = kshW = ksW$. So we can just consider
+  $x \in Ks$.
+  Now for $k_1s, k_2s\in Ks$, if $k_1sW = k_2sW$, then $\exists h\in H$ s.t.
+  $k_1s = k_2sh \implies k_2^{-1}k_1 = shs^{-1} \in H_s \implies
+  k_1 \in k_2H_s$.
+
+  We found that the subspaces generated by $\Set{ xW \given x\in KsH}$ is
+  same as $\Set{ xsW \given x \in K/H_s}$ and any two elements in this
+  set are disjoint subspaces.
+
+  We define $\displaystyle V_s = \bigoplus_{x\in K/H_s} xsW$ which is a
+  $K$-invariant subspace of $V$. Also, it is not difficult to show that for
+  two distinct $s_1, s_2 \in K\bsl G/H$, $V_{s_1}, V_{s_2}$ are disjoint.
+  So $\displaystyle V = \bigoplus_{s\in K\bsl G/H} V_s$.
+\end{observation}
+
+\begin{theorem}[Mackey's Theorem]
+  \label{thm:mackey}
+  $\displaystyle \Res^G_K \Ind^G_H W = \bigoplus_{s\in K\bsl G/H} \Ind^K_{H_s} W_s$.
+  \begin{proof}
+    Let $V = \Ind^G_H W$. By the observation above, we have
+    \[
+      V_s = \bigoplus_{x\in K/H_s} xsW = \Ind^K_{H_s} sW
+    \]
+    We only need to show that $\varphi: W_s \to sW, \quad w \mapsto sw$
+    is a $\Cb[H_s]$-module isomorphism.
+    This is obvious: $\forall t\in H_s, \varphi(tw) = \varphi(\rho(s^{-1}ts)(w))
+    = \varphi(s^{-1}tsw) = tsw = t\varphi(w)$.
+  \end{proof}
 \end{theorem}
 
+\begin{definition}
+  Two representations $V_1, V_2$ of a group $G$ are said to be {\bf disjoint}
+  if they have no common irreducible subrepresentation, i.e.
+  $\inpd{V_1, V_2}_G = 0$.
+\end{definition}
+
+\begin{theorem}[Mackey's Criterion]
+  Let $K = H$. The induced representation $V = \Ind^G_H W$ is irreducible
+  if and only if
+  \begin{enumerate}[(a)]
+    \item $W$ is irreducible, and
+    \item for each $s\in G - H$, the two representations $W_s$
+      and $\Res^H_{H_s} W$ are disjoint.
+  \end{enumerate}
+  \begin{proof}
+    $V$ is irreducible if and only if $\inpd{V, V}_G = 1$.
+    By Thm \ref{thm:frob}, we have
+    \[ \inpd{V, V}_G = \inpd{\Ind^G_H W, V}_G = \inpd{W, \Res^G_H V}_H \]
+    But from Thm \ref{thm:mackey} we have
+    \[ \Res^G_H V = \bigoplus_{s\in H\bsl G/H} \Ind^H_{H_s} W_s. \]
+    Applying Thm \ref{thm:frob} once more, we obtain:
+    \[ \inpd{V, V}_G = \sum_{s\in H\bsl G/H} \inpd{W, \Ind^H_{H_s} W_s}_H
+      = \sum_{s\in H\bsl G/H} \inpd{\Res^H_{H_s} W, W_s}_{H_s}
+    \]
+    We know that $\inpd{\Res^H_{H_s} W, W_s}_{H_s} \ge 0$ for any
+    $s\in H\bsl G/H$.
+    In particular, for $s = 1 \in H\bsl G/H$, we have $H_s = H$,
+    $\inpd{\Res^H_{H_s} W, W_s}_{H_s} = \inpd{W, W}_H \ge 1$.
+    So $\inpd{V, V}_G = 1$ if and only if
+    $\inpd{W, W}_H = 1$ and $\inpd{\Res^H_{H_s} W, W_s}_{H_s} = 0$
+    for all $s\ne 1$ in $H\bsl G/H$.
+    Which are exactly the conditions (a) and (b).
+  \end{proof}
+\end{theorem}
+
+\begin{coro}
+  Let $H \lhd G$ and $W$ be a representation of $H$. $\Ind^G_H W$ is
+  irreducible if and only if $W$ is irreducible and not isomorphic to
+  any of its conjugates $W_s$ for $s \not\in H$.
+  \begin{proof}
+    We have $H_s = H$ for all $s$. So we get the result directly by
+    applying the theorem above.
+  \end{proof}
+\end{coro}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % \bibliographystyle{plain}
 % \bibliography{journal.bib}
